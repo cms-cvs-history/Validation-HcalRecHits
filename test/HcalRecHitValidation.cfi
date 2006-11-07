@@ -1,0 +1,64 @@
+
+  service = MessageLogger { }
+
+  service = DaqMonitorROOTBackEnd{ }
+
+  source = PoolSource {
+     untracked vstring fileNames = {'file:simhits_pi+100_etaphi244.root'}
+     untracked int32 maxEvents = -1
+     untracked uint32 debugVebosity = 10
+     untracked bool   debugFlag     = true
+  }
+
+        module mix = MixingModule {
+               int32 bunchspace = 25
+        }
+
+include "CalibCalorimetry/HcalPlugins/data/hardwired_conditions.cfi"
+
+# unsuppressed digi's
+#
+
+
+include "SimCalorimetry/HcalSimProducers/data/hcaldigi.cfi"
+
+
+include "SimCalorimetry/EcalSimProducers/data/ecalDigiSequence.cff"
+include "RecoLocalCalo/EcalRecProducers/data/ecalLocalRecoSequence.cff"
+
+
+
+include "RecoLocalCalo/HcalRecProducers/data/HcalSimpleReconstructor-hbhe.cfi"
+include "RecoLocalCalo/HcalRecProducers/data/HcalSimpleReconstructor-ho.cfi"
+include "RecoLocalCalo/HcalRecProducers/data/HcalSimpleReconstructor-hf.cfi"
+
+include "Geometry/CMSCommonData/data/cmsIdealGeometryXML.cfi"
+
+
+#   es_module = HcalHardcodeGeometryEP {}
+#   es_module = CaloTowerHardcodeGeometryEP {}
+#   es_module = CaloGeometryBuilder {}
+#   es_module = EcalBarrelGeometryEP {}
+#   es_module = EcalEndcapGeometryEP {}
+
+ 
+
+
+
+
+module myanalyzer = HcalRecHitsValidation{
+     untracked string outputFile = 'HcalDigisValidationHE.root'
+     untracked string hcalselector   = 'HO'	
+}
+
+
+module OUTPUT = PoolOutputModule
+   {
+      untracked string fileName = "evtgen_detsim_digi.root"
+   }
+
+
+   # Now order modules for execution
+   #path p1 = { VtxSmeared, doG4SimHitsDigi }
+## endpath outpath = { OUTPUT }
+
