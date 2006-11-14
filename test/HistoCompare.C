@@ -6,9 +6,9 @@ class HistoCompare {
 
   HistoCompare() { std::cout << "Initializing HistoCompare... " << std::endl; } ;
 
-  void PVCompute(TH1 * oldHisto , TH1 * newHisto , char* drawhist);
-  void PVCompute(TH2 * oldHisto , TH2 * newHisto , char* drawhist);
-  void PVCompute(TProfile * oldHisto , TProfile * newHisto , char* drawhist);
+  void PVCompute(TH1 * oldHisto , TH1 * newHisto , char* drawhist,char* noise);
+  void PVCompute(TH2 * oldHisto , TH2 * newHisto , char* drawhist,char* noise);
+  void PVCompute(TProfile * oldHisto , TProfile * newHisto , char* drawhist, char* noise);
 
  private:
   
@@ -28,7 +28,7 @@ class HistoCompare {
 
 };
 
-HistoCompare::PVCompute(TH1 * oldHisto , TH1 * newHisto , char* histdraw)
+HistoCompare::PVCompute(TH1 * oldHisto , TH1 * newHisto , char* histdraw,char* noise )
 {
   myoldHisto1 = oldHisto;
   mynewHisto1 = newHisto;
@@ -41,7 +41,8 @@ HistoCompare::PVCompute(TH1 * oldHisto , TH1 * newHisto , char* histdraw)
     newHisto->SetLineColor(47);
     oldHisto->Draw();
     newHisto->Draw("same");
-    TString name = oldHisto->GetTitle(); 
+    TString name = oldHisto->GetTitle();
+    name += noise;
     name +=  ".gif" ;
     if ( histdraw == "gif" ) Hcal->Print(name);
   } 
@@ -58,7 +59,7 @@ HistoCompare::PVCompute(TH1 * oldHisto , TH1 * newHisto , char* histdraw)
   
 }
 
-HistoCompare::PVCompute(TH2 * oldHisto , TH2 * newHisto , char* histdraw)
+HistoCompare::PVCompute(TH2 * oldHisto , TH2 * newHisto , char* histdraw,char* noise)
 {
   
   myoldHisto2 = oldHisto;
@@ -72,8 +73,8 @@ HistoCompare::PVCompute(TH2 * oldHisto , TH2 * newHisto , char* histdraw)
     newHisto->UseCurrentStyle();
     oldHisto->SetLineColor(45);
     newHisto->SetLineColor(47);
-    oldHisto->Draw();
-    newHisto->Draw("same");
+    oldHisto->Draw("box");
+    newHisto->Draw("boxsame");
     TString name = oldHisto->GetTitle(); 
     name +=  ".gif" ;
   
@@ -94,7 +95,7 @@ HistoCompare::PVCompute(TH2 * oldHisto , TH2 * newHisto , char* histdraw)
 }
 
 
-HistoCompare::PVCompute(TProfile * oldHisto , TProfile * newHisto , char* histdraw)
+HistoCompare::PVCompute(TProfile * oldHisto , TProfile * newHisto , char* histdraw,char* noise)
 {
   if ( histdraw == "ps" || histdraw == "gif"  ) {
    
