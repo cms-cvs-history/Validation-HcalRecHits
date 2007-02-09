@@ -1,64 +1,28 @@
 
-  service = MessageLogger { }
-
-  service = DaqMonitorROOTBackEnd{ }
-
-  source = PoolSource {
-     untracked vstring fileNames = {'file:simhits_pi+100_etaphi244.root'}
-     untracked int32 maxEvents = -1
+   source = PoolSource {
+     untracked vstring fileNames =
+{'file:/localscratch/dkonst/CMSSW_1_3_0_pre1_25_01_2007/CMSSW_1_2_0/src/Validation/HcalHits/test/simevent_HB.root'}
+     untracked int32 maxEvents = 10
      untracked uint32 debugVebosity = 10
      untracked bool   debugFlag     = true
   }
 
-        module mix = MixingModule {
-               int32 bunchspace = 25
-        }
+  service = MessageLogger { }
 
-include "CalibCalorimetry/HcalPlugins/data/hardwired_conditions.cfi"
+  service = DaqMonitorROOTBackEnd{ }
 
-# unsuppressed digi's
-#
+include "Configuration/JetMET/data/calorimetry-digitization.cff"
 
+include "Configuration/JetMET/data/calorimetry-reconstruction.cff"
+sequence caloRecoSeq = { ecalLocalRecoSequence & hbhereco & hfreco & horeco }
 
-include "SimCalorimetry/HcalSimProducers/data/hcaldigi.cfi"
+module hcalRecoAnalyzer = HcalRecHitsValidation{
+     untracked string outputFile = 'HcalRecHitsValidationHB.root'
+     untracked string hcalselector   = 'HB'
+}
 
-
-include "SimCalorimetry/EcalSimProducers/data/ecalDigiSequence.cff"
-include "RecoLocalCalo/EcalRecProducers/data/ecalLocalRecoSequence.cff"
-
-
-
-include "RecoLocalCalo/HcalRecProducers/data/HcalSimpleReconstructor-hbhe.cfi"
-include "RecoLocalCalo/HcalRecProducers/data/HcalSimpleReconstructor-ho.cfi"
-include "RecoLocalCalo/HcalRecProducers/data/HcalSimpleReconstructor-hf.cfi"
-
-include "Geometry/CMSCommonData/data/cmsIdealGeometryXML.cfi"
-
-
-#   es_module = HcalHardcodeGeometryEP {}
-#   es_module = CaloTowerHardcodeGeometryEP {}
-#   es_module = CaloGeometryBuilder {}
-#   es_module = EcalBarrelGeometryEP {}
-#   es_module = EcalEndcapGeometryEP {}
-
+path p = {caloDigi, caloRecoSeq, hcalRecoAnalyzer}
  
 
 
-
-
-module myanalyzer = HcalRecHitsValidation{
-     untracked string outputFile = 'HcalDigisValidationHE.root'
-     untracked string hcalselector   = 'HO'	
-}
-
-
-module OUTPUT = PoolOutputModule
-   {
-      untracked string fileName = "evtgen_detsim_digi.root"
-   }
-
-
-   # Now order modules for execution
-   #path p1 = { VtxSmeared, doG4SimHitsDigi }
-## endpath outpath = { OUTPUT }
 
