@@ -1,8 +1,14 @@
+#    include "Configuration/StandardSequences/data/VtxSmearedGauss.cff"
+    include "Configuration/StandardSequences/data/Simulation.cff"
+    include "Configuration/StandardSequences/data/Reconstruction.cff"
+    include "Configuration/StandardSequences/data/MixingNoPileUp.cff"
+    include "Configuration/StandardSequences/data/FakeConditions.cff"
+
+  untracked PSet maxEvents = {untracked int32 input = -1}
 
    source = PoolSource {
      untracked vstring fileNames =
-{'file:/localscratch/dkonst/CMSSW_1_3_0_pre1_25_01_2007/CMSSW_1_2_0/src/Validation/HcalHits/test/simevent_HB.root'}
-     untracked int32 maxEvents = 10
+{'file:simevent_HB.root'}
      untracked uint32 debugVebosity = 10
      untracked bool   debugFlag     = true
   }
@@ -11,18 +17,21 @@
 
   service = DaqMonitorROOTBackEnd{ }
 
-include "Configuration/JetMET/data/calorimetry-digitization.cff"
-
-include "Configuration/JetMET/data/calorimetry-reconstruction.cff"
-sequence caloRecoSeq = { ecalLocalRecoSequence & hbhereco & hfreco & horeco }
+  service = RandomNumberGeneratorService {
+            untracked uint32 sourceSeed = 135799753
+            PSet moduleSeeds =
+            {
+#              untracked uint32 VtxSmeared = 98765432
+#              untracked uint32 g4SimHits  = 11
+              untracked uint32 mix        = 12345
+              untracked uint32 ecalUnsuppressedDigis = 43434
+              untracked uint32 hcalDigis = 43434
+      }
+  }
 
 module hcalRecoAnalyzer = HcalRecHitsValidation{
      untracked string outputFile = 'HcalRecHitsValidationHB.root'
      untracked string hcalselector   = 'HB'
 }
 
-path p = {caloDigi, caloRecoSeq, hcalRecoAnalyzer}
- 
-
-
-
+#path p = {mix, calDigi, ecalLocalRecoSequence,  hbhereco, hcalRecoAnalyzer}
