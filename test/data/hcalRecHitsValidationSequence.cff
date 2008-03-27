@@ -1,0 +1,28 @@
+include "Validation/HcalRecHits/test/data/HcalRecHitParam.cfi"
+
+module HBRecHitsValidation = hcalRecoAnalyzer from
+                             "Validation/HcalRecHits/test/data/HcalRecHitParam.cfi"
+replace HBRecHitsValidation.hcalselector = "HB"
+replace HBRecHitsValidation.outputFile = 'HcalRecHitsValidationHB.root'
+
+module HERecHitsValidation = hcalRecoAnalyzer from
+                             "Validation/HcalRecHits/test/data/HcalRecHitParam.cfi"
+replace HERecHitsValidation.hcalselector = "HE"
+replace HERecHitsValidation.outputFile = 'HcalRecHitsValidationHE.root'
+
+module HORecHitsValidation = hcalRecoAnalyzer from
+                             "Validation/HcalRecHits/test/data/HcalRecHitParam.cfi"
+replace HORecHitsValidation.hcalselector = "HO"
+replace HORecHitsValidation.outputFile = 'HcalRecHitsValidationHO.root'
+
+module HFRecHitsValidation = hcalRecoAnalyzer from
+                             "Validation/HcalRecHits/test/data/HcalRecHitParam.cfi"
+replace HFRecHitsValidation.hcalselector = "HF"
+replace HFRecHitsValidation.outputFile = 'HcalRecHitsValidationHF.root'
+
+module AllRecHitsValidation = hcalRecoAnalyzer from
+                             "Validation/HcalRecHits/test/data/HcalRecHitParam.cfi"
+replace AllRecHitsValidation.hcalselector = "All"
+replace AllRecHitsValidation.outputFile = 'HcalRecHitsValidationAll.root'
+
+sequence hcalRecHitsValidationSequence = { HBRecHitsValidation & HERecHitsValidation & HORecHitsValidation & HFRecHitsValidation & AllRecHitsValidation }
