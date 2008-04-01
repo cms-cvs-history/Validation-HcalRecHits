@@ -22,7 +22,7 @@ replace HFRecHitsValidation.outputFile = 'HcalRecHitsValidationHF.root'
 
 module AllRecHitsValidation = hcalRecoAnalyzer from
                              "Validation/HcalRecHits/test/data/HcalRecHitParam.cfi"
-replace AllRecHitsValidation.hcalselector = "All"
+replace AllRecHitsValidation.hcalselector = "all"
 replace AllRecHitsValidation.outputFile = 'HcalRecHitsValidationAll.root'
 
 sequence hcalRecHitsValidationSequence = { HBRecHitsValidation & HERecHitsValidation & HORecHitsValidation & HFRecHitsValidation & AllRecHitsValidation }
