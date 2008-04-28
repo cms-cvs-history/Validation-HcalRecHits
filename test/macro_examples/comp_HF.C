@@ -31,7 +31,7 @@
    label2[0] = &"HcalRecHitTask_energy_rechits_vs_simhits_HF.gif";
 
 
-   f1->cd("DQMData/HcalRecHitTask");
+   f1->cd("DQMData/HcalRecHitsV/HcalRecHitTask");
    gDirectory->pwd();
    f1_hist1[0] = HcalRecHitTask_sum_of_rechits_energy_in_cone_HF;
    f1_hist1[1] = HcalRecHitTask_number_of_rechits_in_cone_HF;
@@ -39,7 +39,7 @@
    f1_hist2[0] = HcalRecHitTask_energy_rechits_vs_simhits_HF;
    f1_histp[0] = HcalRecHitTask_energy_rechits_vs_simhits_profile_HF; 
 
-   f2->cd("DQMData/HcalRecHitTask");
+   f2->cd("DQMData/HcalRecHitsV/HcalRecHitTask");
    gDirectory->pwd();
    f2_hist1[0] = HcalRecHitTask_sum_of_rechits_energy_in_cone_HF;
    f2_hist1[1] = HcalRecHitTask_number_of_rechits_in_cone_HF;

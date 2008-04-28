@@ -45,7 +45,7 @@
    labelp[3] = &"HcalRecHitTask_En_rechits_cone_profile_vs_eta_depth4.gif";
 
 
-   f1->cd("DQMData/HcalRecHitTask");
+   f1->cd("DQMData/HcalRecHitsV/HcalRecHitTask");
    gDirectory->pwd();
    f1_hist2[0] = HcalRecHitTask_energy_rechits_vs_simhits_HB;
    f1_hist2[1] = HcalRecHitTask_energy_rechits_vs_simhits_HE;
@@ -66,7 +66,7 @@
    f1_prof[2] = HcalRecHitTask_En_rechits_cone_profile_vs_ieta_depth3;
    f1_prof[3] = HcalRecHitTask_En_rechits_cone_profile_vs_ieta_depth4;
 
-   f2->cd("DQMData/HcalRecHitTask");
+   f2->cd("DQMData/HcalRecHitsV/HcalRecHitTask");
    gDirectory->pwd();
    f2_hist2[0] = HcalRecHitTask_energy_rechits_vs_simhits_HB;
    f2_hist2[1] = HcalRecHitTask_energy_rechits_vs_simhits_HE;

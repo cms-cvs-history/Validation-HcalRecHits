@@ -34,7 +34,7 @@
    label2[2] = &"HcalRecHitTask_timing_vs_energy_HB.gif";
 
 
-   f1->cd("DQMData/HcalRecHitTask");
+   f1->cd("DQMData/HcalRecHitsV/HcalRecHitTask");
    gDirectory->pwd();
    f1_hist1[0] = HcalRecHitTask_energy_ecal_plus_hcal_in_cone_HB;
    f1_hist1[1] = HcalRecHitTask_number_of_rechits_above_1GeV_HB;
@@ -46,7 +46,7 @@
    f1_histp[1] = HcalRecHitTask_energy_rechits_vs_simhits_profile_HB; 
    f1_hist2[2] = HcalRecHitTask_timing_vs_energy_HB;
 
-   f2->cd("DQMData/HcalRecHitTask");
+   f2->cd("DQMData/HcalRecHitsV/HcalRecHitTask");
    gDirectory->pwd();
    f2_hist1[0] = HcalRecHitTask_energy_ecal_plus_hcal_in_cone_HB;
    f2_hist1[1] = HcalRecHitTask_number_of_rechits_above_1GeV_HB;
