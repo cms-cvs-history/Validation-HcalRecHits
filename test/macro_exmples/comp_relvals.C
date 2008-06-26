@@ -1,7 +1,6 @@
 // Commands executed in a GLOBAL scope, e.g. created hitograms aren't erased...
 {
 
-   TCanvas *myc = new TCanvas("myc","",900,600);
       
    TFile f1("HcalRecHitsValidationALL_RelVal_38.root");
    TFile f2("HcalRecHitsValidationALL_RelVal_40.root");
@@ -59,7 +58,7 @@
    labelp[4] = &"emean_vs_ieta_HE3.gif";
    labelp[5] = &"emean_vs_ieta_HO.gif";
    labelp[6] = &"emean_vs_ieta_HF1.gif";
-   labelp[7] = &"emean_vs_ieta_HFd2.gif";
+   labelp[7] = &"emean_vs_ieta_HF2.gif";
 
    labelp[8]  = &"emean_seq_HB1.gif";
    labelp[9]  = &"emean_seq_HB2.gif";
@@ -182,14 +181,14 @@
    f1_prof[6]->GetXaxis()->SetTitle("Mean energy vs ieta (GeV) HF depth1");
    f1_prof[7]->GetXaxis()->SetTitle("Mean energy vs ieta (GeV) HF depth2");
 
-   f1_prof[8]-> GetXaxis()->SetTitle("HB depth 1: mean energy (GeV) vs ieta");
-   f1_prof[9]-> GetXaxis()->SetTitle("HB depth 2: mean energy (GeV) vs ieta");
-   f1_prof[10]->GetXaxis()->SetTitle("HE depth 1: mean energy (GeV) vs ieta");
-   f1_prof[11]->GetXaxis()->SetTitle("HE depth 2: mean energy (GeV) vs ieta");
-   f1_prof[12]->GetXaxis()->SetTitle("HE depth 3: mean energy (GeV) vs ieta");
+   f1_prof[8]-> GetXaxis()->SetTitle("HB depth 1: mean energy (GeV) sequential channels");
+   f1_prof[9]-> GetXaxis()->SetTitle("HB depth 2: mean energy (GeV) sequential channels");
+   f1_prof[10]->GetXaxis()->SetTitle("HE depth 1: mean energy (GeV) sequential channels");
+   f1_prof[11]->GetXaxis()->SetTitle("HE depth 2: mean energy (GeV) sequential channels");
+   f1_prof[12]->GetXaxis()->SetTitle("HE depth 3: mean energy (GeV) sequential channels");
    f1_prof[13]->GetXaxis()->SetTitle("HO: mean energy (GeV) vs ieta");
-   f1_prof[14]->GetXaxis()->SetTitle("HF depth 1: mean energy (GeV) vs ieta");
-   f1_prof[15]->GetXaxis()->SetTitle("HF depth 2: mean energy (GeV) vs ieta");
+   f1_prof[14]->GetXaxis()->SetTitle("HF depth 1: mean energy (GeV) sequential channels");
+   f1_prof[15]->GetXaxis()->SetTitle("HF depth 2: mean energy (GeV) sequential channels");
 
    //
    //   f1_hist1[8]->SetMaximum(0.5);
@@ -200,53 +199,13 @@
    // hist1->GetXaxis()->SetNdivisions(-21);
    // hist1->GetYaxis()->SetNdivisions(-1003);
 
-
-    myc->SetGrid();
-
-   //  Profiles
-  for (int i = 0; i < Nprof; i++){
-
-    f1_prof[i]->SetStats(kFALSE);   
-    f2_prof[i]->SetStats(kFALSE); 
-    
-    f1_prof[i]->SetTitle("");
-    f2_prof[i]->SetTitle("");
-
-    f1_prof[i]->SetErrorOption("");
-    f2_prof[i]->SetErrorOption("");
-
-    f1_prof[i]->SetLineColor(41);
-    f1_prof[i]->SetLineStyle(1);     
-    f1_prof[i]->SetLineWidth(1); 
-    f1_prof[i]->SetMarkerColor(41);
-    f1_prof[i]->SetMarkerStyle(21);
-    f1_prof[i]->SetMarkerSize(0.8);  
-
-    f2_prof[i]->SetLineColor(43);
-    f2_prof[i]->SetLineStyle(1);  
-    f2_prof[i]->SetLineWidth(1); 
-    f2_prof[i]->SetMarkerColor(43);
-    f2_prof[i]->SetMarkerStyle(22);
-    f2_prof[i]->SetMarkerSize(1.0);  
-
-    f1_prof[i]->Draw("hist pl");   
-    f2_prof[i]->Draw("hist pl same");   
-
-    TLegend *leg = new TLegend(0.83, 0.87, 0.98, 0.97, "","brNDC");    
-     leg->SetBorderSize(2);
-     leg->SetFillStyle(1001); 
-     leg->AddEntry(f1_prof[i],"ttbar 3.8T","pl");
-     leg->AddEntry(f2_prof[i],"ttbar 4.0T","pl");
-
-     leg->Draw("");   
-     
-     myc->SaveAs(labelp[i]);
-
-  }
-
+   /*
 
    //  1D-histo
   for (int i = 0; i < Nhist1; i++){
+
+    TCanvas *myc = new TCanvas("myc","",800,600);
+    myc->SetGrid();
 
     if(i < 4) { gPad->SetLogy(1);}
     else {gPad->SetLogy(0);}
@@ -258,15 +217,13 @@
     f2_hist1[i]->SetTitle("");
 
     f1_hist1[i]->SetLineColor(41);
-    //    if(i >= 4 && i <= 15 ) f1_hist1[i]->SetLineWidth(1);
-    //    else f1_hist1[i]->SetLineWidth(2);  
+    if(i >= 8)  f1_hist1[i]->SetLineWidth(2);  
     f1_hist1[i]->SetMarkerColor(41);
     f1_hist1[i]->SetMarkerStyle(20);
     f1_hist1[i]->SetMarkerSize(0.02);  
 
     f2_hist1[i]->SetLineColor(43);
-    //    if(i >= 4 && i <= 15) f2_hist1[i]->SetLineWidth(1);
-    //    else f2_hist1[i]->SetLineWidth(2);  
+    if(i >= 8) f2_hist1[i]->SetLineWidth(2);  
     f2_hist1[i]->SetLineStyle(2); 
     f2_hist1[i]->SetMarkerColor(43);
     f2_hist1[i]->SetMarkerStyle(20);
@@ -286,6 +243,97 @@
     myc->SaveAs(label1[i]);
     
   }
+
+   */
+
+
+   //  Profiles
+  for (int i = 0; i < Nprof; i++){
+
+    if(i <= 7 ) { TCanvas *myc = new TCanvas("myc","",800,600);}
+    else {
+      gStyle->SetPadLeftMargin(0.06);
+      gStyle->SetPadRightMargin(0.03);
+      TCanvas *myc = new TCanvas("myc","",1200,600);
+    }
+
+    myc->SetGrid();
+  
+    f1_prof[i]->SetErrorOption("");
+    f2_prof[i]->SetErrorOption("");
+
+    f1_prof[i]->SetStats(kFALSE);   
+    f2_prof[i]->SetStats(kFALSE); 
+    
+    f1_prof[i]->SetTitle("");
+    f2_prof[i]->SetTitle("");
+
+    TH1D* fp1;
+    TH1D* fp2;
+
+    if( i >= 8) {
+
+      fp1 = f1_prof[i]->ProjectionX();    
+      fp2 = f2_prof[i]->ProjectionX();    
+
+      int nbins = fp1->GetNbinsX();
+      for (j = 1; j < nbins; j++) {
+	fp1->SetBinError(j, 0.);
+	fp2->SetBinError(j, 0.);
+      }
+
+      fp1->SetLineWidth(0); 
+      fp1->SetLineColor(0); // 5 yellow
+      fp1->SetLineStyle(1); 
+      fp1->SetMarkerColor(2);
+      fp1->SetMarkerStyle(20);
+      fp1->SetMarkerSize(0.5);
+    
+      fp2->SetLineWidth(0); 
+      fp2->SetLineColor(0); // 45 blue
+      fp2->SetLineStyle(2); 
+      fp2->SetMarkerColor(4); 
+      fp2->SetMarkerStyle(22);
+      fp2->SetMarkerSize(0.5);
+
+      fp1->Draw("p9");   
+      fp2->Draw("p9same");   
+  
+    }
+    if( i< 8) {
+      f1_prof[i]->SetLineColor(41);
+      f1_prof[i]->SetLineStyle(1);     
+      f1_prof[i]->SetLineWidth(1); 
+      f1_prof[i]->SetMarkerColor(41);
+      f1_prof[i]->SetMarkerStyle(21);
+      f1_prof[i]->SetMarkerSize(0.8);  
+      
+      f2_prof[i]->SetLineColor(43);
+      f2_prof[i]->SetLineStyle(1);  
+      f2_prof[i]->SetLineWidth(1); 
+      f2_prof[i]->SetMarkerColor(43);
+      f2_prof[i]->SetMarkerStyle(22);
+      f2_prof[i]->SetMarkerSize(1.0);  
+
+      f1_prof[i]->Draw("hist pl");   
+      f2_prof[i]->Draw("hist pl same");   
+    }
+
+    TLegend *leg = new TLegend(0.83, 0.87, 0.98, 0.97, "","brNDC");    
+     leg->SetBorderSize(2);
+     leg->SetFillStyle(1001); 
+     leg->AddEntry(f1_prof[i],"ttbar 3.8T","pl");
+     leg->AddEntry(f2_prof[i],"ttbar 4.0T","pl");
+
+     leg->Draw("");   
+     
+     myc->SaveAs(labelp[i]);
+
+     delete fp1;
+     delete fp2;
+
+  }
+
 
    // close ROOT files
    //
