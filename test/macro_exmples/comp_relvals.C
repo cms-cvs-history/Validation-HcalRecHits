@@ -268,13 +268,15 @@
     TH1D* fp1;
     TH1D* fp2;
 
+
+
     if( i >= 8) {
 
       fp1 = f1_prof[i]->ProjectionX();    
       fp2 = f2_prof[i]->ProjectionX();    
 
       int nbins = fp1->GetNbinsX();
-      for (j = 1; j < nbins; j++) {
+      for (int j = 1; j < nbins; j++) {
 	fp1->SetBinError(j, 0.);
 	fp2->SetBinError(j, 0.);
       }
@@ -295,7 +297,12 @@
 
       fp1->Draw("p9");   
       fp2->Draw("p9same");   
-  
+
+      TLegend *leg = new TLegend(0.83, 0.87, 0.98, 0.97, "","brNDC");    
+      leg->SetBorderSize(2);
+      leg->SetFillStyle(1001); 
+      leg->AddEntry(fp1,"ttbar 3.8T","pl");
+      leg->AddEntry(fp2,"ttbar 4.0T","pl");  
     }
     if( i< 8) {
       f1_prof[i]->SetLineColor(41);
@@ -314,20 +321,18 @@
 
       f1_prof[i]->Draw("hist pl");   
       f2_prof[i]->Draw("hist pl same");   
+
+      TLegend *leg = new TLegend(0.83, 0.87, 0.98, 0.97, "","brNDC");    
+      leg->SetBorderSize(2);
+      leg->SetFillStyle(1001); 
+      leg->AddEntry(f1_prof[i],"ttbar 3.8T","pl");
+      leg->AddEntry(f2_prof[i],"ttbar 4.0T","pl");
     }
 
-    TLegend *leg = new TLegend(0.83, 0.87, 0.98, 0.97, "","brNDC");    
-     leg->SetBorderSize(2);
-     leg->SetFillStyle(1001); 
-     leg->AddEntry(f1_prof[i],"ttbar 3.8T","pl");
-     leg->AddEntry(f2_prof[i],"ttbar 4.0T","pl");
 
      leg->Draw("");   
      
      myc->SaveAs(labelp[i]);
-
-     delete fp1;
-     delete fp2;
 
   }
 
