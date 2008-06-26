@@ -199,7 +199,6 @@
    // hist1->GetXaxis()->SetNdivisions(-21);
    // hist1->GetYaxis()->SetNdivisions(-1003);
 
-   /*
 
    //  1D-histo
   for (int i = 0; i < Nhist1; i++){
@@ -243,8 +242,6 @@
     myc->SaveAs(label1[i]);
     
   }
-
-   */
 
 
    //  Profiles
