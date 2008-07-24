@@ -2,8 +2,8 @@
 {
 
       
-   TFile f1("HcalRecHitsValidationALL_RelVal_38.root");
-   TFile f2("HcalRecHitsValidationALL_RelVal_40.root");
+   TFile f1("HcalRecHitsValidationALL_RelVal_210pre9_startup.root");
+   TFile f2("HcalRecHitsValidationALL_RelVal_210pre9_ideal.root");
    
    // service variables
    //
@@ -161,10 +161,11 @@
    f1_hist1[2]->GetXaxis()->SetTitle("HO RecHits energy (GeV)");
    f1_hist1[3]->GetXaxis()->SetTitle("HF RecHits energy (GeV)");
 
-   f1_hist1[4]->GetXaxis()->SetTitle("Number of HB RecHits");
-   f1_hist1[5]->GetXaxis()->SetTitle("Number of HE RecHits");
-   f1_hist1[6]->GetXaxis()->SetTitle("Number of HO RecHits");
-   f1_hist1[7]->GetXaxis()->SetTitle("Number of HF RecHits");
+   // NB !!!!!
+   f2_hist1[4]->GetXaxis()->SetTitle("Number of HB RecHits");
+   f2_hist1[5]->GetXaxis()->SetTitle("Number of HE RecHits");
+   f2_hist1[6]->GetXaxis()->SetTitle("Number of HO RecHits");
+   f2_hist1[7]->GetXaxis()->SetTitle("Number of HF RecHits");
 
    f1_hist1[8]->GetXaxis()->SetTitle("HB depth 1: occupancy vs ieta");
    f1_hist1[9]->GetXaxis()->SetTitle("HB depth 2: occupancy vs ieta");
@@ -212,9 +213,6 @@
     if(i < 4) { gPad->SetLogy(1);}
     else {gPad->SetLogy(0);}
 
-    f1_hist1[i]->SetStats(kFALSE);   
-    f2_hist1[i]->SetStats(kFALSE); 
-    
     f1_hist1[i]->SetTitle("");
     f2_hist1[i]->SetTitle("");
 
@@ -231,14 +229,32 @@
     f2_hist1[i]->SetMarkerStyle(20);
     f2_hist1[i]->SetMarkerSize(0.02);  
 
-    f1_hist1[i]->Draw("hist");   
-    f2_hist1[i]->Draw("hist same");   
+    if( i <=7 ) {      
+       TPaveStats *ptstats = new TPaveStats(0.8,0.8,0.99,1.0,"brNDC");
+       ptstats->SetTextColor(41);
+       f1_hist1[i]->GetListOfFunctions()->Add(ptstats);
+       ptstats->SetParent(f1_hist1[i]->GetListOfFunctions());
+       TPaveStats *ptstats = new TPaveStats(0.8,0.6,0.99,0.8,"brNDC");
+       ptstats->SetTextColor(43);
+       f2_hist1[i]->GetListOfFunctions()->Add(ptstats);
+       ptstats->SetParent(f2_hist1[i]->GetListOfFunctions());
 
-    TLegend *leg = new TLegend(0.83, 0.87, 0.98, 0.97, "","brNDC");    
+       f2_hist1[i]->Draw("hist"); // "stat"
+       f1_hist1[i]->Draw("hist sames");
+    }
+    else {
+      f1_hist1[i]->SetStats(kFALSE);   
+      f2_hist1[i]->SetStats(kFALSE); 
+
+      f1_hist1[i]->Draw("hist");   
+      f2_hist1[i]->Draw("hist same");   
+    }
+
+    TLegend *leg = new TLegend(0.03, 0.90, 0.28, 0.98, "","brNDC");    
     leg->SetBorderSize(2);
     leg->SetFillStyle(1001); 
-    leg->AddEntry(f1_hist1[i],"ttbar 3.8T","l");
-    leg->AddEntry(f2_hist1[i],"ttbar 4.0T","l");
+    leg->AddEntry(f1_hist1[i],"210pre9 startup cond.","l");
+    leg->AddEntry(f2_hist1[i],"210pre9 ideal cond.","l");
 
     leg->Draw();   
     
@@ -274,6 +290,9 @@
       fp1[i] = f1_prof[i]->ProjectionX();    
       fp2[i] = f2_prof[i]->ProjectionX();    
 
+      fp1[i]->SetStats(kFALSE);   
+      fp2[i]->SetStats(kFALSE); 
+
       char* title;
       title = f1_prof[i]->GetXaxis()->GetTitle();
       fp1[i]->GetXaxis()->SetTitle(title);
@@ -305,8 +324,8 @@
       TLegend *leg = new TLegend(0.83, 0.87, 0.98, 0.97, "","brNDC");    
       leg->SetBorderSize(2);
       leg->SetFillStyle(1001); 
-      leg->AddEntry(fp1[i],"ttbar 3.8T","pl");
-      leg->AddEntry(fp2[i],"ttbar 4.0T","pl");  
+      leg->AddEntry(fp1[i],"210pre9 startup cond.","pl");
+      leg->AddEntry(fp2[i],"210pre9 ideal cond.","pl");  
     }
     if( i< 8) {
       f1_prof[i]->SetLineColor(41);
@@ -329,8 +348,8 @@
       TLegend *leg = new TLegend(0.83, 0.87, 0.98, 0.97, "","brNDC");    
       leg->SetBorderSize(2);
       leg->SetFillStyle(1001); 
-      leg->AddEntry(f1_prof[i],"ttbar 3.8T","pl");
-      leg->AddEntry(f2_prof[i],"ttbar 4.0T","pl");
+      leg->AddEntry(f1_prof[i],"210pre9 startup cond.","pl");
+      leg->AddEntry(f2_prof[i],"210pre9 ideal cond.","pl");
     }
 
 
