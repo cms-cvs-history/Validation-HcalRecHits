@@ -2,7 +2,7 @@
 {
 
       
-   TFile f1("HcalRecHitsValidationALL_RelVal_210pre9_startup.root");
+   TFile f1("HcalRecHitsValidationALL_RelVal_210pre6.root");
    TFile f2("HcalRecHitsValidationALL_RelVal_210pre9_ideal.root");
    
    // service variables
@@ -162,10 +162,10 @@
    f1_hist1[3]->GetXaxis()->SetTitle("HF RecHits energy (GeV)");
 
    // NB !!!!!
-   f2_hist1[4]->GetXaxis()->SetTitle("Number of HB RecHits");
-   f2_hist1[5]->GetXaxis()->SetTitle("Number of HE RecHits");
-   f2_hist1[6]->GetXaxis()->SetTitle("Number of HO RecHits");
-   f2_hist1[7]->GetXaxis()->SetTitle("Number of HF RecHits");
+   f1_hist1[4]->GetXaxis()->SetTitle("Number of HB RecHits");
+   f1_hist1[5]->GetXaxis()->SetTitle("Number of HE RecHits");
+   f1_hist1[6]->GetXaxis()->SetTitle("Number of HO RecHits");
+   f1_hist1[7]->GetXaxis()->SetTitle("Number of HF RecHits");
 
    f1_hist1[8]->GetXaxis()->SetTitle("HB depth 1: occupancy vs ieta");
    f1_hist1[9]->GetXaxis()->SetTitle("HB depth 2: occupancy vs ieta");
@@ -239,8 +239,8 @@
        f2_hist1[i]->GetListOfFunctions()->Add(ptstats);
        ptstats->SetParent(f2_hist1[i]->GetListOfFunctions());
 
-       f2_hist1[i]->Draw("hist"); // "stat"
-       f1_hist1[i]->Draw("hist sames");
+       f1_hist1[i]->Draw("hist"); // "stat"
+       f2_hist1[i]->Draw("hist sames");
     }
     else {
       f1_hist1[i]->SetStats(kFALSE);   
@@ -253,8 +253,8 @@
     TLegend *leg = new TLegend(0.03, 0.90, 0.28, 0.98, "","brNDC");    
     leg->SetBorderSize(2);
     leg->SetFillStyle(1001); 
-    leg->AddEntry(f1_hist1[i],"210pre9 startup cond.","l");
-    leg->AddEntry(f2_hist1[i],"210pre9 ideal cond.","l");
+    leg->AddEntry(f1_hist1[i],"210pre6 ideal_v2, ideal geom.","l");
+    leg->AddEntry(f2_hist1[i],"210pre9 ideal_v5, startup geom.","l");
 
     leg->Draw();   
     
@@ -321,11 +321,11 @@
       fp1[i]->Draw("p9");   
       fp2[i]->Draw("p9same");   
 
-      TLegend *leg = new TLegend(0.83, 0.87, 0.98, 0.97, "","brNDC");    
+      TLegend *leg = new TLegend(0.73, 0.87, 0.98, 0.97, "","brNDC");    
       leg->SetBorderSize(2);
       leg->SetFillStyle(1001); 
-      leg->AddEntry(fp1[i],"210pre9 startup cond.","pl");
-      leg->AddEntry(fp2[i],"210pre9 ideal cond.","pl");  
+      leg->AddEntry(fp1[i],"210pre6 ideal_v2, ideal geom.","pl");
+      leg->AddEntry(fp2[i],"210pre9 ideal_v5, startup geom.","pl");  
     }
     if( i< 8) {
       f1_prof[i]->SetLineColor(41);
@@ -345,11 +345,11 @@
       f1_prof[i]->Draw("hist pl");   
       f2_prof[i]->Draw("hist pl same");   
 
-      TLegend *leg = new TLegend(0.83, 0.87, 0.98, 0.97, "","brNDC");    
+      TLegend *leg = new TLegend(0.73, 0.92, 0.98, 0.99, "","brNDC");    
       leg->SetBorderSize(2);
       leg->SetFillStyle(1001); 
-      leg->AddEntry(f1_prof[i],"210pre9 startup cond.","pl");
-      leg->AddEntry(f2_prof[i],"210pre9 ideal cond.","pl");
+      leg->AddEntry(f1_prof[i],"210pre6 ideal_v2, ideal geom.","pl");
+      leg->AddEntry(f2_prof[i],"210pre9 ideal_v5, startup geom.","pl");
     }
 
 
