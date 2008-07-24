@@ -230,11 +230,11 @@
     f2_hist1[i]->SetMarkerSize(0.02);  
 
     if( i <=7 ) {      
-       TPaveStats *ptstats = new TPaveStats(0.8,0.8,0.99,1.0,"brNDC");
+       TPaveStats *ptstats = new TPaveStats(0.85,0.86,0.98,0.98,"brNDC");
        ptstats->SetTextColor(41);
        f1_hist1[i]->GetListOfFunctions()->Add(ptstats);
        ptstats->SetParent(f1_hist1[i]->GetListOfFunctions());
-       TPaveStats *ptstats = new TPaveStats(0.8,0.6,0.99,0.8,"brNDC");
+       TPaveStats *ptstats = new TPaveStats(0.85,0.74,0.98,0.86,"brNDC");
        ptstats->SetTextColor(43);
        f2_hist1[i]->GetListOfFunctions()->Add(ptstats);
        ptstats->SetParent(f2_hist1[i]->GetListOfFunctions());
