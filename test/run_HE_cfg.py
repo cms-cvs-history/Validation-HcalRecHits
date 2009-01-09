@@ -2,6 +2,7 @@ import FWCore.ParameterSet.Config as cms
 
 process = cms.Process("HCALRECHITSVALIDATION")
 process.load("Validation.HcalRecHits.HcalRecHitsValidation_cfi")
+process.load("Configuration.StandardSequences.GeometryECALHCAL_cff")
 
 process.PoolSource.fileNames = ['file:/afs/cern.ch/cms/data/CMSSW/Validation/HcalDigis/data/2_0_0/simhits_pi50_etaphi244.root']
 
