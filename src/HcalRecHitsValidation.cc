@@ -917,7 +917,7 @@ void HcalRecHitsValidation::analyze(edm::Event const& ev, edm::EventSetup const&
 
   edm::Handle<edm::HepMCProduct> evtMC;
   //  ev.getByLabel("VtxSmeared",evtMC);
-  ev.getByLabel("source",evtMC);
+  ev.getByLabel("generator",evtMC);
   if (!evtMC.isValid()) {
     std::cout << "no HepMCProduct found" << std::endl;    
   } else {
@@ -928,8 +928,8 @@ void HcalRecHitsValidation::analyze(edm::Event const& ev, edm::EventSetup const&
   // MC particle with highest pt is taken as a direction reference  
   double maxPt = -99999.;
   int npart    = 0;
-  HepMC::GenEvent * myGenEvent = new  HepMC::GenEvent(*(evtMC->GetEvent()));
-  for ( HepMC::GenEvent::particle_iterator p = myGenEvent->particles_begin();
+  const HepMC::GenEvent * myGenEvent = evtMC->GetEvent();
+  for ( HepMC::GenEvent::particle_const_iterator p = myGenEvent->particles_begin();
 	p != myGenEvent->particles_end(); ++p ) {
     double phip = (*p)->momentum().phi();
     double etap = (*p)->momentum().eta();
