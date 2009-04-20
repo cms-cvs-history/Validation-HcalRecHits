@@ -15,6 +15,11 @@ process.hcalRecoAnalyzer = cms.EDFilter("HcalRecHitsValidation",
     ecalselector = cms.untracked.string('yes')
 )
 
-process.p = cms.Path(process.mix*process.calDigi*process.ecalLocalRecoSequence*process.hbhereco*process.hcalRecoAnalyzer)
-
-
+process.p = cms.Path(
+ process.VtxSmeared * process.g4SimHits * process.mix *
+ process.calDigi * 
+ process.ecalPacker * process.hcalRawData *
+ process.ecalDigis * process.hcalDigis *
+ process.ecalGlobalUncalibRecHit * process.ecalDetIdToBeRecovered * process.ecalRecHit *
+ process.hbhereco * process.horeco * process.hfreco *
+ process.hcalRecoAnalyzer)

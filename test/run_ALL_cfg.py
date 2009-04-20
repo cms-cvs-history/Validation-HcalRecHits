@@ -13,5 +13,10 @@ process.hcalRecoAnalyzer = cms.EDFilter("HcalRecHitsValidation",
     hcalselector = cms.untracked.string('all')
 )
 
+process.hbhereco.digiLabel = 'simHcalDigis'
+process.horeco.digiLabel = 'simHcalDigis'
+process.hfreco.digiLabel = 'simHcalDigis'
+
+
 process.p = cms.Path(process.mix*process.simHcalUnsuppressedDigis*process.simHcalDigis*process.hbhereco*process.horeco*process.hfreco*process.hcalRecoAnalyzer)
 

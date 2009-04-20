@@ -20,4 +20,8 @@ process.simHcalDigis.HElevel = -1000
 process.simHcalDigis.HOlevel = -1000
 process.simHcalDigis.HFlevel = -1000
 
+process.hbhereco.digiLabel = 'simHcalDigis'
+process.horeco.digiLabel = 'simHcalDigis'
+process.hfreco.digiLabel = 'simHcalDigis'
+
 process.p = cms.Path(process.mix*process.simHcalUnsuppressedDigis*process.simHcalDigis*process.hbhereco*process.horeco*process.hfreco*process.hcalRecoAnalyzer)
